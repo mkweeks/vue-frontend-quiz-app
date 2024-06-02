@@ -1,5 +1,5 @@
 <template>
-  <button class="topic-container" @click="showTopic">
+  <button class="answer-container" @click="checkAnswer">
     <IconDiv></IconDiv>
     <div class="item-container">
       <h3>{{ quiz.title }}</h3>
@@ -18,16 +18,15 @@ export default defineComponent({
   },
   props: ["quiz"],
   methods: {
-    showTopic() {
-      this.$router.push(`quiz/${this.quiz.title}`);
-      localStorage.setItem("quizData", JSON.stringify(this.quiz.questions))
-    },
+    checkAnswer() {
+        console.log(quiz[0])
+    }
   },
 });
 </script>
 
 <style scoped>
-.topic-container {
+.answer-container {
   position: relative;
   width: 450px;
   height: 80px;
@@ -42,10 +41,10 @@ export default defineComponent({
   color: #313e51;
 }
 
-.topic-container :hover {
-  border: none
+.answer-container :hover {
+  border: none;
 }
-npm 
+
 .item-container {
   width: 225px;
   display: flex;

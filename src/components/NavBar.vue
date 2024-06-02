@@ -4,6 +4,9 @@
             <div class="topic-icon">
                 <IconDiv :item="item"></IconDiv>
             </div>
+            <div class="topic-title">
+                <h3> {{item[0].title}} </h3>
+            </div>
         </div>
         <div class="toggle">
             <img src="@/assets/images/icon-sun-dark.svg">
@@ -25,7 +28,11 @@ export default defineComponent({
     components: {
         IconDiv,
     },
-    props: ["item"]
+    props: ["item"], 
+    data(){
+        return {
+        }
+    }
 })
 </script>
 
@@ -41,10 +48,12 @@ export default defineComponent({
 
 .toggle {
     display: flex;
+    margin-left: 75%;
+    position: fixed;
 }
 
 .topic {
-    display: flex;
+    display: none;
     justify-content: space-between;
     align-items: center;
     font-size: larger;
