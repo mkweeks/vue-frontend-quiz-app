@@ -1,32 +1,16 @@
 <template>
   <div class="main">
-    <NavBar :item="quizzes"></NavBar>
+    <NavBar></NavBar>
     <router-view />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import quizzes from "../src/data.json";
 import NavBar from "./components/NavBar.vue";
 
-interface quizData {
-  quizzes: {
-    title: string;
-    icon: string;
-    questions: {
-      question: string;
-      options: string[];
-    }[];
-  }[];
-}
-
 export default defineComponent({
-  data(): quizData {
-    return quizzes;
-  },
   methods: {},
-
   components: {
     NavBar,
   },
@@ -56,9 +40,5 @@ export default defineComponent({
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-body {
-  margin: 0px;
 }
 </style>

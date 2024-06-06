@@ -5,10 +5,18 @@
       <h2>{{ questionSet[increment].question }}</h2>
     </div>
     <div class="options">
-      <button class="choice"><IconDiv letter="A"></IconDiv>{{ options[0] }}</button>
-      <button class="choice"><IconDiv letter="B"></IconDiv>{{ options[1] }}</button>
-      <button class="choice"><IconDiv letter="C"></IconDiv>{{ options[2] }}</button>
-      <button class="choice"><IconDiv letter="D"></IconDiv>{{ options[3] }}</button>
+      <button class="choice" @click="selected(options[0])">
+        <IconDiv letter="A"></IconDiv>{{ options[0] }}
+      </button>
+      <button class="choice" @click="selected(options[1])">
+        <IconDiv letter="B"></IconDiv>{{ options[1] }}
+      </button>
+      <button class="choice" @click="selected(options[2])">
+        <IconDiv letter="C"></IconDiv>{{ options[2] }}
+      </button>
+      <button class="choice" @click="selected(options[3])">
+        <IconDiv letter="D"></IconDiv>{{ options[3] }}
+      </button>
       <button class="submit" @click="checkAnswer">Submit Answer</button>
     </div>
   </div>
@@ -21,22 +29,37 @@ import IconDiv from "@/components/IconDiv.vue";
 export default defineComponent({
   name: "QuestionView",
   components: {
-    IconDiv
+    IconDiv,
   },
   methods: {
     checkAnswer() {
-      this.increment ++;
-      this.currentQuestion ++;
-      this.options = this.questionSet[this.increment].options
+      if (this.currentQuestion < 10) {
+        this.increment++;
+        this.currentQuestion++;
+
+        this.options = this.questionSet[this.increment].options;
+        this.correctAnswer = this.questionSet[this.increment].answer;
+      } else {
+        this.$router.replace("score");
+      }
+    },
+    selected(option: string) {
+      this.selectedAnswer = option;
+      if (this.selectedAnswer == this.correctAnswer) {
+        this.score++;
+        console.log(this.score);
+      }
     },
   },
   data(): any {
     return {
-      receivedObject: {},
       currentQuestion: 1,
       increment: 0,
       questionSet: [],
       options: [],
+      selectedAnswer: "",
+      correctAnswer: "",
+      score: 0,
     };
   },
   created() {
@@ -44,6 +67,7 @@ export default defineComponent({
     if (questionSet) {
       this.questionSet = JSON.parse(questionSet);
       this.options = this.questionSet[this.increment].options;
+      this.correctAnswer = this.questionSet[this.increment].answer;
     }
   },
 });
@@ -54,7 +78,7 @@ export default defineComponent({
   position: relative;
   width: 450px;
   height: 80px;
-  background-color: #A729F5;
+  background-color: #a729f5;
   border: none;
   box-shadow: 2px 2px 5px lightgrey;
   border-radius: 15px;
@@ -66,15 +90,11 @@ export default defineComponent({
 }
 
 .heading {
-  display: flex;
-  flex-direction: column;
   width: 550px;
-  margin-top: 0px;
 }
 
 .questionNumber {
   font-family: "rubik italic";
-  margin-top: 0px;
 }
 
 .options {
@@ -92,9 +112,10 @@ export default defineComponent({
 .menu {
   display: flex;
   justify-content: space-between;
-  height: fit-content;
+  height: 540px;
   width: 1160px;
-  margin-top: 25px;
+  position: relative;
+  top: 50px;
 }
 
 .choice {

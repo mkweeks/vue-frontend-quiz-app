@@ -15,9 +15,20 @@ import { defineComponent } from "vue";
 import quizzes from "../data.json";
 import MenuOptionItem from "../components/MenuOptionItem.vue";
 
+interface quizData {
+  quizzes: {
+    title: string;
+    icon: string;
+    questions: {
+      question: string;
+      options: string[];
+    }[];
+  }[];
+}
+
 export default defineComponent({
   name: "HomeView",
-  data(): any {
+  data(): quizData {
     return quizzes;
   },
   components: {
@@ -43,9 +54,9 @@ export default defineComponent({
 .menu {
   display: flex;
   justify-content: space-between;
-  height: fit-content;
+  height: 540px;
   width: 1160px;
-  margin-bottom: 10%;
+  position: relative;
 }
 
 h1 {

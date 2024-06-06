@@ -19,7 +19,7 @@ export default defineComponent({
   props: ["quiz"],
   methods: {
     checkAnswer() {
-        console.log(quiz[0])
+        // console.log(quiz[0])
     }
   },
 });
