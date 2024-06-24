@@ -28,7 +28,7 @@ export default defineComponent({
 
 <style scoped>
 .toggle-theme {
-  width: 1160px;
+  width: 100vw;
   height: 50px;
   display: flex;
   justify-content: space-between;
@@ -37,7 +37,7 @@ export default defineComponent({
 
 .toggle {
   display: flex;
-  margin-left: 75%;
+  margin-left: 85%;
   position: fixed;
 }
 

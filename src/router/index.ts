@@ -18,7 +18,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/quiz/score',
     name: "score",
-    component: () => import('../views/ScoreView.vue')
+    component: () => import('../views/ScoreView.vue'),
   }
 ]
 

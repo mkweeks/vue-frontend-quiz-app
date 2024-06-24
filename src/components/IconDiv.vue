@@ -26,10 +26,6 @@ export default defineComponent({
   align-items: center;
 }
 
-.icon-div :hover {
-  background-color: rgb(167, 41, 245)
-}
-
 h3 {
   font-family: "rubik regular"
 }

@@ -5,21 +5,54 @@
       <h2>{{ questionSet[increment].question }}</h2>
     </div>
     <div class="options">
-      <button class="choice" @click="selected(options[0])">
+      <button
+        :disabled="isCorrect"
+        class="choice"
+        :class="{
+          correct: correctAnswer == options[0] && correctAnswer == selectedAnswer,
+          wrong: correctAnswer !== selectedAnswer && selectedAnswer == options[0],
+        }"
+        @click="selected(options[0])"
+      >
         <IconDiv letter="A"></IconDiv>{{ options[0] }}
       </button>
-      <button class="choice" @click="selected(options[1])">
+      <button
+        :disabled="isCorrect"
+        class="choice"
+        :class="{
+          correct: correctAnswer == options[1] && correctAnswer == selectedAnswer ,
+          wrong: correctAnswer !== selectedAnswer && selectedAnswer == options[1],
+        }"
+        @click="selected(options[1])"
+      >
         <IconDiv letter="B"></IconDiv>{{ options[1] }}
       </button>
-      <button class="choice" @click="selected(options[2])">
+      <button
+        :disabled="isCorrect"
+        class="choice"
+        :class="{
+          correct: correctAnswer == options[2] && correctAnswer == selectedAnswer,
+          wrong: correctAnswer !== selectedAnswer && selectedAnswer == options[2],
+        }"
+        @click="selected(options[2])"
+      >
         <IconDiv letter="C"></IconDiv>{{ options[2] }}
       </button>
-      <button class="choice" @click="selected(options[3])">
+      <button
+        :disabled="isCorrect"
+        class="choice"
+        :class="{
+          correct: correctAnswer == options[3] && correctAnswer == selectedAnswer,
+          wrong: correctAnswer !== selectedAnswer && selectedAnswer == options[3],
+        }"
+        @click="selected(options[3])"
+      >
         <IconDiv letter="D"></IconDiv>{{ options[3] }}
       </button>
       <button class="submit" @click="checkAnswer">Submit Answer</button>
     </div>
   </div>
+  <div class="no-answer" v-show="show"><p style="color: #EE5454">Please select an answer</p></div>
 </template>
 
 <script lang="ts">
@@ -33,21 +66,32 @@ export default defineComponent({
   },
   methods: {
     checkAnswer() {
-      if (this.currentQuestion < 10) {
+      if (this.currentQuestion < 10 && this.selectedAnswer !== "") {
         this.increment++;
         this.currentQuestion++;
+        this.selectedAnswer = ""
 
         this.options = this.questionSet[this.increment].options;
         this.correctAnswer = this.questionSet[this.increment].answer;
-      } else {
-        this.$router.replace("score");
+        this.isCorrect = false;
+      } else if (this.selectedAnswer === "") {
+        this.show = true
+      }
+      else {
+        localStorage.setItem("finalScore", this.score);
+        this.$router.push(`score`);
       }
     },
     selected(option: string) {
       this.selectedAnswer = option;
+      this.show = false
+      console.log(this.selectedAnswer);
       if (this.selectedAnswer == this.correctAnswer) {
         this.score++;
-        console.log(this.score);
+        this.isCorrect = true;
+      }
+      else {
+        this.isCorrect = true
       }
     },
   },
@@ -60,6 +104,8 @@ export default defineComponent({
       selectedAnswer: "",
       correctAnswer: "",
       score: 0,
+      isCorrect: false,
+      show: false,
     };
   },
   created() {
@@ -89,6 +135,14 @@ export default defineComponent({
   color: white;
 }
 
+.correct {
+  border: 3px solid #26D782 !important;
+}
+
+.wrong {
+  border: 3px solid #EE5454 !important;
+}
+
 .heading {
   width: 550px;
 }
@@ -103,10 +157,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-.options :hover {
-  border: solid #a729f5;
+  margin: 15px;
 }
 
 .menu {

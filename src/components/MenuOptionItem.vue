@@ -20,6 +20,7 @@ export default defineComponent({
   methods: {
     showTopic() {
       this.$router.push(`quiz/${this.quiz.title}`);
+      localStorage.setItem('quizTitle', this.quiz.title)
       localStorage.setItem("quizData", JSON.stringify(this.quiz.questions))
     },
   },
@@ -45,7 +46,11 @@ export default defineComponent({
 .topic-container :hover {
   border: none
 }
-npm 
+
+.item-container :hover {
+  border: 1px solid green;
+}
+
 .item-container {
   width: 225px;
   display: flex;

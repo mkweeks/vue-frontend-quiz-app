@@ -37,7 +37,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 .heading {
   width: 550px;
 }
@@ -68,6 +68,7 @@ h6 {
   font-family: "rubik italic";
   font-size: 12px;
 }
+
 .options :hover {
   border: 3px solid #a729f5;
 }

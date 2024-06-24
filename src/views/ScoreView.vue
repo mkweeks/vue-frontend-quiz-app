@@ -7,10 +7,12 @@
     <div class="disp-score">
       <div class="score">
         <div class="topic">
-          <IconDiv></IconDiv><h2>Accessibility</h2>
+          <IconDiv></IconDiv>
+          <h2>{{ quizTitle }}</h2>
         </div>
-        <!-- <h1>{{score}}</h1> -->
-        <h1><span style='font-size: 100px'>8</span></h1>
+        <h1>
+          <span style="font-size: 100px">{{ score }}</span>
+        </h1>
         <p>out of 10</p>
       </div>
       <button class="new-round" @click="newRound">Play Again</button>
@@ -24,14 +26,24 @@ import IconDiv from "@/components/IconDiv.vue";
 
 export default defineComponent({
   name: "ScoreView",
+  data(): any {
+    return {
+      score: {},
+      quizTitle: '',
+    };
+  },
   components: {
-    IconDiv
-  }, 
+    IconDiv,
+  },
   methods: {
     newRound() {
-        this.$router.push('/')
-    }
-  }
+      this.$router.push("/");
+    },
+  },
+  created() {
+    this.score = localStorage.getItem("finalScore")
+    this.quizTitle = localStorage.getItem('quizTitle')
+  },
 });
 </script>
 
@@ -51,7 +63,7 @@ h6 {
 .heading {
   width: 550px;
   position: relative;
-  bottom: 50px;
+  /* bottom: 50px; */
 }
 
 .menu {
@@ -64,8 +76,8 @@ h6 {
 }
 
 .topic {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .disp-score {
